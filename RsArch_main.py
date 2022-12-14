@@ -71,25 +71,32 @@ while True:
 	if event == sg.WIN_CLOSED:
 		break
 
-	if event == "currentXpInput":
-		if int(window["currentXpInput"].get()) > 200000000:
-			window["currentXpInput"].update("200000000")
-		window["currentLevelInput"].update(RsA_f.find_level(int(window["currentXpInput"].get())))
+	try:
+		if event == "currentXpInput":
+			if int(window["currentXpInput"].get()) > 200000000:
+				window["currentXpInput"].update("200000000")
+			window["currentLevelInput"].update(RsA_f.find_level(int(window["currentXpInput"].get())))
 
-	elif event == "targetXpInput":
-		if int(window["targetXpInput"].get()) > 200000000:
-			window["targetXpInput"].update("200000000")
-		window["targetLevelInput"].update(RsA_f.find_level(int(window["targetXpInput"].get())))
-	
-	elif event == "currentLevelInput":
-		if int(window["currentLevelInput"].get()) > 120:
-			window["currentLevelInput"].update("120")
-		window["currentXpInput"].update(RsA_f.find_experience(int(window["currentLevelInput"].get())))
-	
-	elif event == "targetLevelInput":
-		if int(window["targetLevelInput"].get()) > 120:
-			window["targetLevelInput"].update("120")
-		window["targetXpInput"].update(RsA_f.find_experience(int(window["targetLevelInput"].get())))
+		elif event == "targetXpInput":
+			if int(window["targetXpInput"].get()) > 200000000:
+				window["targetXpInput"].update("200000000")
+			window["targetLevelInput"].update(RsA_f.find_level(int(window["targetXpInput"].get())))
+		
+		elif event == "currentLevelInput":
+			if int(window["currentLevelInput"].get()) > 120:
+				window["currentLevelInput"].update("120")
+			window["currentXpInput"].update(RsA_f.find_experience(int(window["currentLevelInput"].get())))
+		
+		elif event == "targetLevelInput":
+			if int(window["targetLevelInput"].get()) > 120:
+				window["targetLevelInput"].update("120")
+			window["targetXpInput"].update(RsA_f.find_experience(int(window["targetLevelInput"].get())))
+			
+	except:
+		window["currentXpInput"].update("0")
+		window["currentLevelInput"].update("0")
+		window["targetXpInput"].update("0")
+		window["targetLevelInput"].update("0")
 
 	if event != '__TIMEOUT__':
 		print(event)

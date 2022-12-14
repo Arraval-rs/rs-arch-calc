@@ -8,6 +8,7 @@ import os
 import io
 import bisect
 import json
+import PySimpleGUI as sg
 from PIL import Image, ImageDraw
 
 # array of XP required to level up skills
@@ -46,12 +47,23 @@ def generate_img(f, s, bg): # Generates image using PIL
 	img.save(bio, format = "PNG")
 	return bio.getvalue()
 
-# 
-def determine_collections(preference, level, target_level):
+# attempts to read a value from a dictionary, returning 0 on failure and sending an error message in the terminal
+def read_value(dict, dict_path):
+	try:
+		if len(dict_path) == 0:
+			return dict
+		else:
+			return read_value(dict[dict_path[0]], dict_path[1:])
+	except:
+		print("WARN: invalid dictionary path: {}".format(dict_path))
+		return 0
+
+# determines the default collections to consider based on preference and level
+def determine_collections(preference, level):
 	return
 
 # Determines which artefacts to build based on input parameters
-def determine_artefacts(collections_only, ):
+def determine_artefacts(collections_only):
 	if collections_only:
 		return
 	else:
