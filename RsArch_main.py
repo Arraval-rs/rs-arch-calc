@@ -51,6 +51,7 @@ root_tabs = [[
 				sg.Column([[
 					sg.TabGroup(
 					[[
+						# Center Tabs *************
 						sg.Tab("Collections", collections_tab),
 						sg.Tab("Materials", materials_tab),
 						sg.Tab("Artefacts", artefacts_tab),
