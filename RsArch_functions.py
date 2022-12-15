@@ -72,3 +72,22 @@ def determine_artefacts(collections_only):
 # function to save input values to JSON
 def save_json_to_file():
 	return
+
+# Create the artefact/material layout given a faction and a category
+def create_item_frame(faction, category):
+	frame = [[]]
+	for i in range(0, 5):
+		column = []
+		for j in range(0, int(len(read_value(arch_dict,["Artefacts", faction]))/5+1)):
+			if i+5*j < len(read_value(arch_dict,["Artefacts", faction])):
+				if category == "Artefact" or category == "To Build":
+					column.append([sg.Image(generate_img("images/artefacts/{}".format(read_value(arch_dict,["Artefacts",faction,i+5*j,"name"])+" (damaged).png"), (31, 31), True))])
+				elif category == "Material":
+					column.append([sg.Image(generate_img("images/artefacts/{}".format(read_value(arch_dict,["Artefacts",faction,i+5*j,"name"])+".png"), (31, 31), True))])
+				elif category == "To Buy": # will need more work with price checking
+					column.append([sg.Image(generate_img("images/artefacts/{}".format(read_value(arch_dict,["Artefacts",faction,i+5*j,"name"])+".png"), (31, 31), True))])
+				column.append([sg.Input(default_text = "0", enable_events = True, justification = "right", size = (3, 1), key = "{}{}_{}".format(faction, category, i+5*j))])
+			else:
+				column.append([sg.Sizer(31, 66)])
+		frame[0].append(sg.Column(column, element_justification = 'center'))
+	return frame

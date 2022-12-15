@@ -9,27 +9,13 @@ import json
 import PySimpleGUI as sg
 import RsArch_functions as RsA_f
 
-# Create the artefact layout given a faction
-def create_artefact_frame(faction):
-	frame = [[]]
-	for i in range(0, 5):
-		column = []
-		for j in range(0, int(len(RsA_f.read_value(RsA_f.arch_dict,["Artefacts", faction]))/5+1)):
-			if i+5*j < len(RsA_f.read_value(RsA_f.arch_dict,["Artefacts", faction])):
-				column.append([sg.Image(RsA_f.generate_img("images/artefacts/{}".format(RsA_f.read_value(RsA_f.arch_dict,["Artefacts",faction,i+5*j,"name"])+" (damaged).png"), (31, 31), True))]) 
-				column.append([sg.Input(default_text = "0", enable_events = True, justification = "right", size = (3, 1))]) # key = "{}Artefacts_{}".format(i+j)
-			else:
-				column.append([sg.Sizer(31, 66)])
-		frame[0].append(sg.Column(column, element_justification = 'center'))
-	return frame
-
 # Creating layouts for each faction's artefacts
-armadyl_frame = create_artefact_frame("Armadylean")
-bandos_frame = create_artefact_frame("Bandosian")
-dragonkin_frame = create_artefact_frame("Dragonkin")
-saradomin_frame = create_artefact_frame("Saradominist")
-zamorak_frame = create_artefact_frame("Zamorakian")
-zaros_frame = create_artefact_frame("Zarosian")
+armadyl_frame = RsA_f.create_item_frame("Armadylean", "Artefact")
+bandos_frame = RsA_f.create_item_frame("Bandosian", "Artefact")
+dragonkin_frame = RsA_f.create_item_frame("Dragonkin", "Artefact")
+saradomin_frame = RsA_f.create_item_frame("Saradominist", "Artefact")
+zamorak_frame = RsA_f.create_item_frame("Zamorakian", "Artefact")
+zaros_frame = RsA_f.create_item_frame("Zarosian", "Artefact")
 
 artefacts_tab = [[
 					sg.Column(
