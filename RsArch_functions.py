@@ -73,21 +73,26 @@ def determine_artefacts(collections_only):
 def save_json_to_file():
 	return
 
-# Create the artefact/material layout given a faction and a category
-def create_item_frame(faction, category):
+# Create the artefact/material layout given a faction and the tab's focus
+def create_item_frame(faction, tab_focus, item_type):
 	frame = [[]]
 	for i in range(0, 5):
 		column = []
-		for j in range(0, int(len(read_value(arch_dict,["Artefacts", faction]))/5+1)):
-			if i+5*j < len(read_value(arch_dict,["Artefacts", faction])):
-				if category == "Artefact" or category == "To Build":
-					column.append([sg.Image(generate_img("images/artefacts/{}".format(read_value(arch_dict,["Artefacts",faction,i+5*j,"name"])+" (damaged).png"), (31, 31), True))])
-				elif category == "Material":
-					column.append([sg.Image(generate_img("images/artefacts/{}".format(read_value(arch_dict,["Artefacts",faction,i+5*j,"name"])+".png"), (31, 31), True))])
-				elif category == "To Buy": # will need more work with price checking
-					column.append([sg.Image(generate_img("images/artefacts/{}".format(read_value(arch_dict,["Artefacts",faction,i+5*j,"name"])+".png"), (31, 31), True))])
-				column.append([sg.Input(default_text = "0", enable_events = True, justification = "right", size = (3, 1), key = "{}{}_{}".format(faction, category, i+5*j))])
-			else:
+		for j in range(0, int(len(read_value(arch_dict,[item_type, faction]))/5+1)): # fix rounding for when length is divisible by 5 (like for materials)
+			if i+5*j < len(read_value(arch_dict,[item_type, faction])):
+				if item_type == "Artefacts":
+					column.append([sg.Image(generate_img("images/artefacts/{}".format(read_value(arch_dict,[item_type,faction,i+5*j,"name"])+" (damaged).png"), (31, 31), True))])
+				elif item_type == "Materials":
+					column.append([sg.Image(generate_img("images/materials/{}".format(read_value(arch_dict,[item_type,faction,i+5*j,"name"])+".png"), (31, 31), True))])
+				if tab_focus == "Artefacts" or tab_focus == "Materials":
+					column.append([sg.Input(default_text = read_value(arch_dict, [item_type, faction, i+5*j, "count"]), enable_events = True, justification = "right", size = (3, 1), key = "{}{}_{}".format(faction, tab_focus, i+5*j))])
+				else:
+					column.append([sg.Input(default_text = "0", justification = "right", size = (3, 1), readonly = True, key = "{}{}_{}".format(faction, tab_focus, i+5*j))])
+				if tab_focus == "To Buy": # will need more work with price checking
+					column.append([sg.Input(default_text = "0", justification = "right", size = (3, 1), key = "{}MaterialCost_{}".format(faction, i+5*j))]) # Change to text and add total?
+			elif tab_focus in ["Artefacts", "Materials", "To Build"]:
 				column.append([sg.Sizer(31, 66)])
+			else:
+				column.append([sg.Sizer(31, 90)])
 		frame[0].append(sg.Column(column, element_justification = 'center'))
 	return frame

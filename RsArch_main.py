@@ -45,13 +45,16 @@ root_tabs = [[
 						sg.Text(text = "Prioritize"), sg.Combo(default_value = "Experience", values = ["Experience", "Compass Pieces", "Chronotes"], enable_events = True, readonly = True, key = "priorityCombo")
 					],
 					[
+						sg.Button(button_text = "Save to File", enable_events = True, key = "saveFileButton"), #popup to confirm
+						sg.Button(button_text = "Reset to Default", enable_events = True, key = "resetDefaultButton") # popup to configrm
+					],
+					[
 						sg.Button(button_text = "Run Calculator", enable_events = True, key = "runCalculatorButton")
 					]
-				]),
+				], element_justification = "center"),
 				sg.Column([[
 					sg.TabGroup(
 					[[
-						# Center Tabs *************
 						sg.Tab("Collections", collections_tab),
 						sg.Tab("Materials", materials_tab),
 						sg.Tab("Artefacts", artefacts_tab),
@@ -91,7 +94,7 @@ while True:
 			if int(window["targetLevelInput"].get()) > 120:
 				window["targetLevelInput"].update("120")
 			window["targetXpInput"].update(RsA_f.find_experience(int(window["targetLevelInput"].get())))
-			
+
 	except:
 		window["currentXpInput"].update("0")
 		window["currentLevelInput"].update("0")

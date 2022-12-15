@@ -1,6 +1,6 @@
 #####################################################
 # RsArch_collections.py                             #
-# Code for the implementation of the materials tab  #
+# Code for the implementation of the collections tab#
 #####################################################
 
 import os
