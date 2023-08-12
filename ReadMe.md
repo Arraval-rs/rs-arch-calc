@@ -1,4 +1,2 @@
 # Runescape Archaeology Calulator
-***Work in progress***
-
-App to calculate artefacts to create for finishing collections.
+Initial version. Migrated for further development to: https://github.com/Arraval-rs/RuneScape_Tools
